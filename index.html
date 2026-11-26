@@ -1,88 +1,298 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio de Toé Drissa</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: "Segoe UI", Arial, sans-serif; color: #f1f5f9; line-height: 1.6; min-height: 100vh; background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a); background-size: 300% 300%; animation: fond 15s ease infinite; }
-    @keyframes fond { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-    @keyframes apparition { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    header { text-align: center; padding: 90px 20px 50px; animation: apparition 1s ease both; }
-    h1 { font-size: clamp(2rem, 6vw, 3.5rem); background: linear-gradient(90deg, #38bdf8, #a78bfa, #f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .sous-titre { margin-top: 12px; font-size: 1.2rem; color: #cbd5e1; }
-    main { max-width: 800px; margin: 0 auto; padding: 0 20px 80px; }
-    h2 { margin: 40px 0 24px; color: #38bdf8; animation: apparition 1s ease 0.3s both; }
-    ul { list-style: none; }
-    li { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); border-left: 5px solid #a78bfa; border-radius: 14px; padding: 22px; margin-bottom: 18px; animation: apparition 1s ease 0.5s both; transition: transform 0.3s, box-shadow 0.3s, border-left-color 0.3s; }
-    li:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 12px 30px rgba(167, 139, 250, 0.35); border-left-color: #f472b6; }
-    a { color: #f472b6; text-decoration: none; }
-    a:hover { color: #38bdf8; text-decoration: underline; }
-    p.texte { margin-bottom: 18px; color: #e2e8f0; animation: apparition 1s ease 0.3s both; }
-    p.objectif { font-weight: 600; color: #f472b6; }
-    .badges { display: flex; flex-wrap: wrap; gap: 12px; }
-    .badges span { padding: 8px 20px; border-radius: 999px; background: rgba(167, 139, 250, 0.18); border: 1px solid #a78bfa; transition: transform 0.3s, background 0.3s; }
-    .badges span:hover { transform: translateY(-4px); background: rgba(244, 114, 182, 0.3); }
-    .video { position: relative; padding-bottom: 56.25%; height: 0; margin-top: 18px; border-radius: 12px; overflow: hidden; }
-    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 0.9rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio de Toé Drissa, étudiant en ingénierie des données : projets, compétences et contact.">
+<meta name="theme-color" content="#0b1020">
+<title>Portfolio de Toé Drissa</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+:root{--bg:#0b1020;--c1:#22d3ee;--c2:#8b5cf6;--c3:#ec4899;--c4:#f59e0b;--txt:#f1f5f9;--muted:#cbd5e1;--glass:rgba(255,255,255,.06);--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;overflow-x:hidden}
+a{color:var(--c1);text-decoration:none}
+
+/* Fond aurore */
+.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg)}
+.aurora span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;will-change:transform}
+.aurora span:nth-child(1){width:55vmax;height:55vmax;background:var(--c2);top:-20vmax;left:-15vmax;animation:flotte1 22s ease-in-out infinite alternate}
+.aurora span:nth-child(2){width:45vmax;height:45vmax;background:var(--c1);bottom:-15vmax;right:-10vmax;animation:flotte2 26s ease-in-out infinite alternate}
+.aurora span:nth-child(3){width:38vmax;height:38vmax;background:var(--c3);top:35%;left:40%;animation:flotte3 30s ease-in-out infinite alternate}
+.aurora span:nth-child(4){width:28vmax;height:28vmax;background:var(--c4);top:10%;right:10%;opacity:.25;animation:flotte1 34s ease-in-out infinite alternate-reverse}
+@keyframes flotte1{to{transform:translate(25vmax,18vmax) scale(1.2)}}
+@keyframes flotte2{to{transform:translate(-22vmax,-20vmax) scale(1.15)}}
+@keyframes flotte3{to{transform:translate(-18vmax,12vmax) scale(.8)}}
+.glow{position:fixed;top:0;left:0;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(139,92,246,.28),transparent 65%);transform:translate3d(-500px,-500px,0)}
+@media (hover:none){.glow{display:none}}
+
+/* Barre de progression */
+#progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:40;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4))}
+
+/* Menu */
+nav{position:sticky;top:0;z-index:30;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 26px;padding:14px 20px;background:rgba(11,16,32,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);font-weight:600;position:relative;padding:2px 0;transition:color .3s}
+nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:linear-gradient(90deg,var(--c1),var(--c3));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+nav a:hover,nav a.actif{color:#fff}
+nav a:hover::after,nav a.actif::after{transform:scaleX(1)}
+
+/* Accueil */
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;position:relative}
+.pastille{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--muted);font-size:.95rem;animation:monte 1s ease both}
+.pastille i{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+@keyframes monte{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(3rem,11vw,7rem);line-height:1.05;margin:22px 0 14px;font-weight:800;letter-spacing:-.02em;animation:teinte 10s ease-in-out infinite}
+@keyframes teinte{0%,100%{filter:hue-rotate(0deg) drop-shadow(0 0 24px rgba(139,92,246,.45))}50%{filter:hue-rotate(60deg) drop-shadow(0 0 24px rgba(236,72,153,.45))}}
+.lettre{display:inline-block;animation:vague 3.2s ease-in-out infinite;animation-delay:calc(var(--i) * .12s)}
+@keyframes vague{0%,55%,100%{transform:translateY(0)}25%{transform:translateY(-14px)}}
+.typing{font-size:clamp(1.1rem,3.2vw,1.7rem);color:var(--muted);min-height:2.2em;animation:monte 1s ease .3s both}
+.curseur{display:inline-block;width:3px;height:1.2em;margin-left:4px;vertical-align:text-bottom;background:var(--c3);animation:clignote 1s steps(1) infinite}
+@keyframes clignote{50%{opacity:0}}
+.boutons{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:34px;animation:monte 1s ease .6s both}
+.btn{display:inline-block;padding:14px 30px;border-radius:999px;font-weight:700;color:#fff;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-4px) scale(1.04)}
+.btn.plein{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));background-size:200% 100%;animation:glisse 5s linear infinite;box-shadow:0 10px 30px rgba(139,92,246,.4)}
+@keyframes glisse{to{background-position:200% 0}}
+.btn.contour{border:2px solid var(--line);background:var(--glass)}
+.btn.contour:hover{border-color:var(--c3);box-shadow:0 10px 30px rgba(236,72,153,.3)}
+.defile{position:absolute;bottom:26px;left:50%;width:26px;height:42px;margin-left:-13px;border:2px solid var(--line);border-radius:14px}
+.defile::after{content:"";position:absolute;top:8px;left:50%;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--c1);animation:descend 1.8s ease-in-out infinite}
+@keyframes descend{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+
+/* Sections */
+main{max-width:1000px;margin:0 auto;padding:0 20px 80px}
+section{padding:70px 0 10px;scroll-margin-top:60px}
+h2{position:relative;display:inline-block;margin-bottom:34px;padding-bottom:12px;font-size:clamp(1.7rem,4.5vw,2.4rem);background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2::after{content:"";position:absolute;left:0;bottom:0;width:70%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--c1),var(--c3))}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;transition-delay:var(--d,0s)}
+.reveal.visible{opacity:1;transform:none}
+.verre{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:30px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.verre p{color:#e2e8f0;margin-bottom:16px}
+.verre p:last-child{margin-bottom:0}
+.verre .bienvenue{font-size:1.25rem;font-weight:700;color:#fff}
+.verre .objectif{font-weight:700;font-size:1.1rem;background:linear-gradient(90deg,var(--c1),var(--c3),var(--c4));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Compétences */
+.badges{display:flex;flex-wrap:wrap;gap:14px}
+.badges span{padding:10px 24px;border-radius:999px;font-weight:600;border:2px solid transparent;background:linear-gradient(#111830,#111830) padding-box,linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c1)) border-box;background-size:100% 100%,200% 100%;background-repeat:no-repeat,repeat;animation:bordure 6s linear infinite;transition:transform .3s,box-shadow .3s}
+@keyframes bordure{to{background-position:0 0,200% 0}}
+.badges span:hover{transform:translateY(-6px) scale(1.08);box-shadow:0 10px 26px rgba(139,92,246,.45)}
+
+/* Formation */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:3px;border-radius:3px;background:linear-gradient(var(--c1),var(--c2),var(--c3))}
+.etape{position:relative;margin-bottom:20px}
+.etape::before{content:"";position:absolute;left:-34px;top:26px;width:19px;height:19px;border-radius:50%;background:var(--bg);border:4px solid var(--c3);box-shadow:0 0 16px var(--c3)}
+.etape strong{display:block;font-size:1.15rem;color:#fff}
+.etape span{color:var(--muted)}
+
+/* Projets */
+.carte{position:relative;padding:30px;margin-bottom:28px;border-radius:24px;background:var(--glass);border:1px solid var(--line);overflow:hidden;transition:transform .35s,border-color .35s,box-shadow .35s}
+.carte::before{content:"";position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx,50%) var(--my,50%),rgba(139,92,246,.28),transparent 42%);opacity:0;transition:opacity .3s}
+.carte:hover{transform:translateY(-8px);border-color:rgba(236,72,153,.55);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.carte:hover::before{opacity:1}
+.carte>*{position:relative}
+.carte h3{font-size:1.5rem;margin-bottom:8px;color:#fff}
+.carte p{color:#e2e8f0;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tags span{padding:4px 14px;border-radius:999px;font-size:.85rem;background:rgba(34,211,238,.12);color:var(--c1);border:1px solid rgba(34,211,238,.3)}
+.lien{display:inline-block;margin-bottom:18px;font-weight:700;color:var(--c3);transition:transform .3s}
+.lien:hover{transform:translateX(6px)}
+.video{position:relative;padding-bottom:56.25%;height:0;border-radius:16px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* Contact */
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.contacts a{display:block;padding:24px;border-radius:20px;background:var(--glass);border:1px solid var(--line);color:var(--txt);transition:transform .3s,border-color .3s,box-shadow .3s}
+.contacts a:hover{transform:translateY(-6px);border-color:var(--c1);box-shadow:0 14px 34px rgba(34,211,238,.25)}
+.contacts small{display:block;color:var(--muted);margin-bottom:4px}
+.contacts strong{font-size:1.1rem;word-break:break-word}
+
+footer{text-align:center;padding:34px 20px;color:#94a3b8;font-size:.9rem;border-top:1px solid var(--line)}
+#haut{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border:0;border-radius:50%;cursor:pointer;color:#fff;font-size:1.3rem;background:linear-gradient(135deg,var(--c2),var(--c3));box-shadow:0 10px 26px rgba(139,92,246,.5);opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity .3s,transform .3s;z-index:30}
+#haut.on{opacity:1;pointer-events:auto;transform:none}
+#haut:hover{transform:translateY(-4px)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Portfolio de Drissa</h1>
-    <p class="sous-titre">Étudiant en Data Engineering à l'EST Dakhla</p>
-  </header>
-  <main>
-    <h2>À propos de moi</h2>
-    <p class="texte">Bonjour et bienvenue sur mon portfolio !</p>
-    <p class="texte">Je suis étudiant en ingénierie des données, passionné par les nouvelles technologies, la programmation et l’analyse des données. Je m’intéresse particulièrement au développement informatique, aux bases de données et aux solutions permettant de transformer les données en informations utiles.</p>
-    <p class="texte">Actuellement en formation, je développe progressivement mes compétences en Python, Java, SQL et dans les outils liés à l’ingénierie des données. Je réalise également des projets pratiques afin de mettre en application mes connaissances et d’améliorer mes capacités à résoudre des problèmes.</p>
-    <p class="texte">Curieux, motivé et déterminé à apprendre, mon objectif est de devenir un ingénieur compétent, de participer à des projets innovants et de contribuer à la création de solutions technologiques à forte valeur ajoutée.</p>
-    <p class="texte">À travers ce portfolio, je vous invite à découvrir mon parcours, mes projets et mon évolution professionnelle.</p>
-    <p class="texte objectif">Mon objectif : apprendre, créer et progresser chaque jour.</p>
+<div class="aurora"><span></span><span></span><span></span><span></span></div>
+<div class="glow"></div>
+<div id="progress"></div>
 
-    <h2>Compétences</h2>
-    <div class="badges">
-      <span>Python</span>
-      <span>Java</span>
-      <span>SQL</span>
-      <span>HTML</span>
-      <span>CSS</span>
-      <span>JavaScript</span>
-      <span>Excel</span>
-      <span>Word</span>
-      <span>PowerPoint</span>
+<nav>
+  <a href="#apropos">À propos</a>
+  <a href="#competences">Compétences</a>
+  <a href="#formation">Formation</a>
+  <a href="#projets">Projets</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header class="hero">
+  <div class="pastille"><i></i> Bienvenue sur mon portfolio</div>
+  <h1 id="nom" data-text="Toé Drissa">Toé Drissa</h1>
+  <p class="typing"><span id="typed"></span><span class="curseur"></span></p>
+  <div class="boutons">
+    <a class="btn plein" href="#projets">Voir mes projets</a>
+    <a class="btn contour" href="#contact">Me contacter</a>
+  </div>
+  <div class="defile"></div>
+</header>
+
+<main>
+  <section id="apropos">
+    <h2 class="reveal">À propos de moi</h2>
+    <div class="verre reveal">
+      <p class="bienvenue">Bonjour et bienvenue sur mon portfolio !</p>
+      <p>Je suis étudiant en ingénierie des données, passionné par les nouvelles technologies, la programmation et l’analyse des données. Je m’intéresse particulièrement au développement informatique, aux bases de données et aux solutions permettant de transformer les données en informations utiles.</p>
+      <p>Actuellement en formation, je développe progressivement mes compétences en Python, Java, SQL et dans les outils liés à l’ingénierie des données. Je réalise également des projets pratiques afin de mettre en application mes connaissances et d’améliorer mes capacités à résoudre des problèmes.</p>
+      <p>Curieux, motivé et déterminé à apprendre, mon objectif est de devenir un ingénieur compétent, de participer à des projets innovants et de contribuer à la création de solutions technologiques à forte valeur ajoutée.</p>
+      <p>À travers ce portfolio, je vous invite à découvrir mon parcours, mes projets et mon évolution professionnelle.</p>
+      <p class="objectif">Mon objectif : apprendre, créer et progresser chaque jour.</p>
     </div>
+  </section>
 
-    <h2>Formation</h2>
-    <ul>
-      <li><strong>DUT en ingénierie des données</strong> : EST de Dakhla (2e année)</li>
-      <li><strong>Baccalauréat série C</strong> : Côte d'Ivoire</li>
-    </ul>
+  <section id="competences">
+    <h2 class="reveal">Compétences</h2>
+    <div class="badges reveal">
+      <span>Python</span><span>Java</span><span>SQL</span>
+      <span>HTML</span><span>CSS</span><span>JavaScript</span>
+      <span>Excel</span><span>Word</span><span>PowerPoint</span>
+    </div>
+  </section>
 
-    <h2>Mes projets</h2>
-    <ul>
-      <li><a href="https://github.com/Nomel20/study.ia"><strong>StudyAI</strong></a> : une appli Python qui transforme un cours PDF en résumé, fiches et QCM.
-        <div class="video">
-          <iframe src="https://www.youtube.com/embed/HwNzYvVK7Wk" title="StudyAI - Démonstration" allowfullscreen></iframe>
-        </div>
-      </li>
-      <li><a href="https://github.com/Nomel20/ami.ia"><strong>Ami.ia</strong></a> : un assistant IA avec qui l'on peut discuter, développé en Python.
-        <div class="video">
-          <iframe src="https://www.youtube.com/embed/nsNHYzTGVRg" title="Ami.ia - Démonstration" allowfullscreen></iframe>
-        </div>
-      </li>
-    </ul>
+  <section id="formation">
+    <h2 class="reveal">Formation</h2>
+    <div class="timeline">
+      <div class="etape verre reveal"><strong>DUT en ingénierie des données</strong><span>EST de Dakhla · 2e année</span></div>
+      <div class="etape verre reveal" style="--d:.15s"><strong>Baccalauréat série C</strong><span>Côte d’Ivoire</span></div>
+    </div>
+  </section>
 
-    <h2>Contact</h2>
-    <ul>
-      <li><strong>GitHub</strong> : <a href="https://github.com/Nomel20">github.com/Nomel20</a></li>
-      <li><strong>Email</strong> : <a href="mailto:drissatoe24@gmail.com">drissatoe24@gmail.com</a></li>
-      <li><strong>LinkedIn</strong> : <a href="https://www.linkedin.com/in/drissa-fraternité-nomel-trésor-toé-651a8b3b7?utm_source=share_via&utm_content=profile&utm_medium=member_ios">DRISSA FRATERNITE NOMEL TRESOR TOE</a></li>
-    </ul>
-  </main>
-  <footer>© 2026 Drissa</footer>
+  <section id="projets">
+    <h2 class="reveal">Mes projets</h2>
+
+    <article class="carte reveal">
+      <h3>StudyAI</h3>
+      <p>Une application qui transforme un cours PDF en résumé, fiches de révision et QCM.</p>
+      <div class="tags"><span>Python</span><span>API Gemini</span><span>HTML · CSS · JavaScript</span></div>
+      <a class="lien" href="https://github.com/Nomel20/study.ia">Voir le code sur GitHub →</a>
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/HwNzYvVK7Wk" title="StudyAI - Démonstration" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </article>
+
+    <article class="carte reveal">
+      <h3>Ami.ia</h3>
+      <p>Un assistant IA avec qui l’on peut discuter, développé en Python.</p>
+      <div class="tags"><span>Python</span><span>API Gemini</span></div>
+      <a class="lien" href="https://github.com/Nomel20/ami.ia">Voir le code sur GitHub →</a>
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/nsNHYzTGVRg" title="Ami.ia - Démonstration" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </article>
+  </section>
+
+  <section id="contact">
+    <h2 class="reveal">Contact</h2>
+    <div class="contacts reveal">
+      <a href="https://github.com/Nomel20"><small>GitHub</small><strong>github.com/Nomel20</strong></a>
+      <a href="mailto:drissatoe24@gmail.com"><small>Email</small><strong>drissatoe24@gmail.com</strong></a>
+      <a href="https://www.linkedin.com/in/drissa-fraternité-nomel-trésor-toé-651a8b3b7?utm_source=share_via&utm_content=profile&utm_medium=member_ios"><small>LinkedIn</small><strong> TOE DRISSA FRATERNITE NOMEL TRESOR</strong></a>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Toé Drissa · Fait avec passion</footer>
+<button id="haut" aria-label="Retour en haut">↑</button>
+
+<script>
+(function(){
+  var reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(s){return document.querySelector(s)}
+  function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+
+  /* Nom : lettres colorées et animées */
+  var h1 = $("#nom"), texte = h1.getAttribute("data-text");
+  h1.setAttribute("aria-label", texte);
+  h1.textContent = "";
+  texte.split("").forEach(function(ch, i, a){
+    var s = document.createElement("span");
+    s.className = "lettre";
+    s.setAttribute("aria-hidden", "true");
+    s.textContent = ch === " " ? "\u00A0" : ch;
+    s.style.setProperty("--i", i);
+    s.style.color = "hsl(" + (190 + i / (a.length - 1) * 140) + ",90%,66%)";
+    h1.appendChild(s);
+  });
+
+  /* Texte qui se tape */
+  var phrases = ["Étudiant en ingénierie des données","Passionné de Python, Java et SQL","Créateur de projets autour de l’IA","Futur ingénieur des données"];
+  var typed = $("#typed"), p = 0, c = 0, eff = false;
+  function tape(){
+    var cible = phrases[p];
+    typed.textContent = cible.slice(0, c);
+    if(!eff && c < cible.length){ c++; setTimeout(tape, 70); }
+    else if(!eff){ eff = true; setTimeout(tape, 1400); }
+    else if(c > 0){ c--; setTimeout(tape, 35); }
+    else { eff = false; p = (p + 1) % phrases.length; setTimeout(tape, 300); }
+  }
+  if(reduit){ typed.textContent = phrases[0]; } else { tape(); }
+
+  /* Barre de progression + bouton retour en haut */
+  var progress = $("#progress"), haut = $("#haut"), tick = false;
+  function surScroll(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+    haut.classList.toggle("on", window.scrollY > 600);
+    tick = false;
+  }
+  window.addEventListener("scroll", function(){ if(!tick){ tick = true; requestAnimationFrame(surScroll); } }, {passive:true});
+  haut.addEventListener("click", function(){ window.scrollTo({top:0, behavior: reduit ? "auto" : "smooth"}); });
+
+  /* Lumière qui suit la souris */
+  var glow = $(".glow");
+  window.addEventListener("pointermove", function(e){
+    glow.style.transform = "translate3d(" + (e.clientX - 210) + "px," + (e.clientY - 210) + "px,0)";
+  }, {passive:true});
+
+  /* Apparition au défilement */
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("visible"); io.unobserve(e.target); } });
+    }, {threshold:.12});
+    $$(".reveal").forEach(function(el){ io.observe(el); });
+
+    /* Menu : section active */
+    var liens = $$("nav a");
+    var spy = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          liens.forEach(function(l){ l.classList.toggle("actif", l.getAttribute("href") === "#" + e.target.id); });
+        }
+      });
+    }, {rootMargin:"-45% 0px -50% 0px"});
+    $$("section[id]").forEach(function(s){ spy.observe(s); });
+  } else {
+    $$(".reveal").forEach(function(el){ el.classList.add("visible"); });
+  }
+
+  /* Lumière sur les cartes de projets */
+  $$(".carte").forEach(function(carte){
+    carte.addEventListener("pointermove", function(e){
+      var r = carte.getBoundingClientRect();
+      carte.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      carte.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+})();
+</script>
 </body>
 </html>
