@@ -173,7 +173,7 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
 
 /* Guide animé */
 #guide{position:fixed;top:0;left:0;width:96px;z-index:90;pointer-events:none;will-change:transform;transform:translate3d(-300px,-300px,0)}
-.perso{display:block;transform-origin:50% 100%;transition:transform .2s ease}
+.perso{display:block;transform-origin:50% 100%;pointer-events:auto;cursor:pointer}
 .perso svg{display:block;width:100%;height:auto;overflow:visible;animation:respire 3.2s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(0,0,0,.55))}
 .perso.marche svg{animation:saut .42s ease-in-out infinite}
 @keyframes respire{50%{transform:translateY(-3px)}}
@@ -185,24 +185,27 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
 .marche .jd{animation:jambeB .42s ease-in-out infinite alternate}
 .marche .bg{animation:brasA .42s ease-in-out infinite alternate}
 .marche .bd{animation:brasB .42s ease-in-out infinite alternate}
-.salue .bd{animation:salue .4s ease-in-out infinite alternate}
+.parle .bd{animation:geste .55s ease-in-out infinite alternate}
 @keyframes jambeA{from{transform:rotate(16deg)}to{transform:rotate(-16deg)}}
 @keyframes jambeB{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
 @keyframes brasA{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
 @keyframes brasB{from{transform:rotate(18deg)}to{transform:rotate(-18deg)}}
-@keyframes salue{from{transform:rotate(-135deg)}to{transform:rotate(-170deg)}}
+@keyframes geste{from{transform:rotate(-28deg)}to{transform:rotate(-58deg)}}
+.bouche{transform-origin:70px 84px}
+.parle .bouche{animation:parole .2s ease-in-out infinite alternate}
+@keyframes parole{from{transform:scaleY(.5)}to{transform:scaleY(1.2)}}
 .oeil.og{transform-origin:59px 67px;animation:cligne 5s infinite}
 .oeil.od{transform-origin:81px 67px;animation:cligne 5s infinite}
 @keyframes cligne{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
-.bulle{position:absolute;bottom:100%;left:50%;margin-bottom:8px;transform:translateX(-30%) translateY(6px);width:max-content;max-width:230px;padding:10px 14px;border-radius:16px;background:rgba(3,10,30,.94);border:1px solid rgba(56,189,248,.5);color:#e0f2fe;font-size:.9rem;line-height:1.35;box-shadow:0 10px 30px rgba(0,0,0,.55);opacity:0;transition:opacity .3s,transform .3s}
-.bulle.on{opacity:1;transform:translateX(-30%) translateY(0)}
-.bulle::after{content:"";position:absolute;top:100%;left:30%;border:7px solid transparent;border-top-color:rgba(56,189,248,.5)}
-.bulle.gauche{left:auto;right:50%;transform:translateX(30%) translateY(6px)}
-.bulle.gauche.on{transform:translateX(30%) translateY(0)}
-.bulle.gauche::after{left:auto;right:30%}
-.bulle.bas{bottom:auto;top:100%;margin-bottom:0;margin-top:8px}
-.bulle.bas::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:rgba(56,189,248,.5)}
-@media (max-width:700px){#guide{width:72px}.bulle{max-width:170px;font-size:.82rem}}
+.bulle{position:absolute;bottom:100%;left:50%;margin-bottom:8px;transform:translateX(-18%) translateY(6px);width:max-content;max-width:260px;padding:10px 14px;border-radius:16px;background:rgba(3,10,30,.94);border:1px solid rgba(56,189,248,.5);color:#e0f2fe;font-size:.92rem;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.55);opacity:0;transition:opacity .3s,transform .3s}
+.bulle.on{opacity:1;transform:translateX(-18%) translateY(0)}
+.bulle::after{content:"";position:absolute;top:100%;left:22%;border:7px solid transparent;border-top-color:rgba(56,189,248,.5)}
+.bulle.gauche{left:auto;right:50%;transform:translateX(18%) translateY(6px)}
+.bulle.gauche.on{transform:translateX(18%) translateY(0)}
+.bulle.gauche::after{left:auto;right:22%}
+.bulle .fantome{display:block;visibility:hidden}
+.bulle .vu{position:absolute;top:10px;left:14px;right:14px}
+@media (max-width:700px){#guide{width:72px}.bulle{max-width:180px;font-size:.82rem}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -376,7 +379,7 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
 
 <!-- GUIDE -->
 <div id="guide" aria-hidden="true">
-  <div class="bulle" id="bulle"></div>
+  <div class="bulle" id="bulle"><span class="fantome"></span><span class="vu"></span></div>
   <div class="perso" id="perso">
     <svg viewBox="0 -8 140 258" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="70" cy="243" rx="38" ry="6" fill="rgba(0,0,0,.45)"/>
@@ -448,7 +451,7 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
         <g class="pupille"><circle cx="81" cy="67" r="3.4" fill="#0a0a0f"/><circle cx="82.3" cy="65.6" r="1.1" fill="#fff"/></g>
       </g>
       <path d="M67 74 Q70 79 73 74" fill="none" stroke="#2c170c" stroke-width="2" stroke-linecap="round"/>
-      <path d="M58 82 Q70 96 82 82 Q70 86 58 82Z" fill="#fff" stroke="#2c170c" stroke-width="1.6" stroke-linejoin="round"/>
+      <path class="bouche" d="M58 82 Q70 96 82 82 Q70 86 58 82Z" fill="#fff" stroke="#2c170c" stroke-width="1.6" stroke-linejoin="round"/>
     </svg>
   </div>
 </div>
@@ -563,7 +566,7 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
     var rx = -100, ry = -100, tx = -100, ty = -100;
     window.addEventListener("pointermove", function(e){ tx = e.clientX; ty = e.clientY; ring.classList.add("on"); }, {passive:true});
     document.addEventListener("pointerover", function(e){
-      ring.classList.toggle("grand", !!(e.target.closest && e.target.closest("a,button,.carte,.badges span,.stat")));
+      ring.classList.toggle("grand", !!(e.target.closest && e.target.closest("a,button,.carte,.badges span,.stat,.perso")));
     });
     (function suit(){
       rx += (tx - rx) * .18; ry += (ty - ry) * .18;
@@ -635,68 +638,136 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
     });
   }
 
-  /* Guide : parole, salut */
+  /* Guide : explications et marche autonome */
   var guide = $("#guide"), perso = $("#perso"), bulle = $("#bulle"), pupilles = $$(".pupille");
-  var messages = {
-    accueil:"Salut ! Je suis ton guide. Clique sur le menu pour découvrir le portfolio.",
-    apropos:"Voici une présentation de Drissa.",
-    competences:"Python, Java, SQL… sa boîte à outils !",
-    formation:"Un parcours en ingénierie des données.",
-    experience:"Un stage en informatique à Casablanca.",
-    projets:"Lance les vidéos pour voir les projets en action !",
-    contact:"Une envie d’échanger ? Utilise l’une de ces cartes."
+  var fant = bulle.querySelector(".fantome"), vu = bulle.querySelector(".vu");
+  var explications = {
+    accueil:["Salut ! Je suis le guide du portfolio de Drissa.","Il est étudiant en ingénierie des données à l’EST de Dakhla.","Utilise le menu en haut pour visiter chaque section. Je t’accompagne !"],
+    apropos:["Ici, Drissa se présente.","Il est passionné par la programmation, les bases de données et l’analyse des données.","Son objectif : apprendre, créer et progresser chaque jour."],
+    competences:["Voici ses compétences.","Il travaille avec Python, Java et SQL, et utilise aussi HTML, CSS et JavaScript.","Il utilise également Excel, Word et PowerPoint."],
+    formation:["Voici son parcours scolaire.","Il a obtenu son baccalauréat série C en Côte d’Ivoire.","Il est maintenant en 2e année de DUT en ingénierie des données à l’EST de Dakhla."],
+    experience:["Voici son expérience professionnelle.","Il a fait un stage en informatique à la boutique Orange Rahma, à Casablanca, en juillet et août 2026.","Il a participé aux activités du service informatique et découvert les méthodes de travail en entreprise."],
+    projets:["Voici ses deux projets.","StudyAI transforme un cours PDF en résumé, fiches et QCM.","Ami.ia est un assistant IA avec lequel on peut discuter.","Chaque projet a une vidéo de démonstration et un lien vers son code sur GitHub."],
+    contact:["Tu veux échanger avec Drissa ?","Ces cartes suspendues mènent vers son GitHub, son email et son LinkedIn.","N’hésite pas à lui écrire !"]
   };
-  var conseils = ["Clique sur le menu pour changer de section.","Les vidéos de démonstration sont dans « Projets ».","Passe la souris sur les cartes pour les voir bouger !"];
-  var tBulle = null, tSalue = null;
-  function parle(txt){
-    bulle.textContent = txt;
-    bulle.classList.add("on");
-    clearTimeout(tBulle);
-    tBulle = setTimeout(function(){ bulle.classList.remove("on"); }, 6000);
-  }
-  function salue(){
-    perso.classList.add("salue");
-    clearTimeout(tSalue);
-    tSalue = setTimeout(function(){ perso.classList.remove("salue"); }, 2400);
-  }
-  setInterval(function(){
-    if(guide.style.display !== "none" && !document.hidden){ parle(conseils[Math.floor(Math.random() * conseils.length)]); }
-  }, 22000);
-
-  /* Guide : déplacement et regard */
+  var conseils = ["Clique sur moi pour que je répète l’explication.","Utilise le menu en haut pour changer de section.","Les vidéos de démonstration sont dans « Projets »."];
+  var seq = 0, tType = null, tLire = null, tLibre = null, finCourant = null, parlant = false;
+  var premier = true, courante = "accueil", marcheAuto = !reduit;
   var W2 = window.innerWidth, H2 = window.innerHeight, G = {w:96, h:177};
-  var px = W2 * .6, py = H2 * .5, dedans = false, gx = 10, gy = H2 - 187, enMarche = false;
+  var px = W2 * .6, py = H2 * .5, dedans = false;
+  var gx = 20, gy = 0, cibleX = 20, arrive = null, dir = 1, enMarche = false, dernier = 0;
+
   function mesures(){
     W2 = window.innerWidth; H2 = window.innerHeight;
     G.w = guide.offsetWidth || 96; G.h = guide.offsetHeight || 177;
+    var max = Math.max(14, W2 - G.w - 14);
+    gx = Math.min(gx, max); cibleX = Math.min(cibleX, max);
   }
   window.addEventListener("resize", mesures);
   mesures();
-  gx = 10; gy = H2 - G.h - 10;
   window.addEventListener("pointermove", function(e){ px = e.clientX; py = e.clientY; dedans = true; }, {passive:true});
-  document.addEventListener("pointerdown", function(e){ px = e.clientX; py = e.clientY; }, {passive:true});
   document.documentElement.addEventListener("mouseleave", function(){ dedans = false; });
-  document.documentElement.addEventListener("mouseenter", function(){ dedans = true; });
-  var suiviActif = pointeurFin && !reduit;
-  function frame(){
-    var cx, cy;
-    if(suiviActif && dedans){ cx = px + 30; cy = py + 26; } else { cx = 10; cy = H2 - G.h - 10; }
-    cx = Math.max(6, Math.min(W2 - G.w - 6, cx));
-    cy = Math.max(64, Math.min(H2 - G.h - 6, cy));
-    var dx = cx - gx, dy = cy - gy;
-    gx += dx * .09; gy += dy * .09;
-    var m = (Math.abs(dx) + Math.abs(dy)) > 8;
-    if(m !== enMarche){ enMarche = m; perso.classList.toggle("marche", m); }
-    perso.style.transform = "rotate(" + Math.max(-9, Math.min(9, dx * .06)) + "deg)";
+
+  /* Bulle : texte qui s'écrit */
+  function bulleOff(){
+    clearInterval(tType); clearTimeout(tLire);
+    bulle.classList.remove("on");
+    perso.classList.remove("parle");
+    parlant = false; finCourant = null;
+  }
+  function dis(txt, fin){
+    clearInterval(tType); clearTimeout(tLire);
+    finCourant = fin; parlant = true;
+    fant.textContent = txt; vu.textContent = "";
+    bulle.classList.add("on");
+    var i = 0;
+    function fini(){
+      perso.classList.remove("parle");
+      tLire = setTimeout(function(){ parlant = false; finCourant = null; fin(); }, 1500 + txt.length * 22);
+    }
+    if(reduit){ vu.textContent = txt; fini(); return; }
+    perso.classList.add("parle");
+    tType = setInterval(function(){
+      i++; vu.textContent = txt.slice(0, i);
+      if(i >= txt.length){ clearInterval(tType); fini(); }
+    }, 28);
+  }
+  function passe(){
+    clearInterval(tType); clearTimeout(tLire);
+    perso.classList.remove("parle");
+    var f = finCourant; parlant = false; finCourant = null;
+    if(f){ f(); }
+  }
+
+  /* Marche */
+  function positionAlea(){ return 14 + Math.random() * Math.max(0, W2 - G.w - 28); }
+  function marcheVers(x, cb){ cibleX = marcheAuto ? x : gx; arrive = cb || null; }
+
+  /* Promenade libre avec petits conseils */
+  function libre(id){
+    function balade(){
+      if(id !== seq){ return; }
+      marcheVers(positionAlea(), function(){
+        if(id !== seq){ return; }
+        tLibre = setTimeout(function(){
+          if(id !== seq){ return; }
+          if(Math.random() < .4){
+            dis(conseils[Math.floor(Math.random() * conseils.length)], function(){ bulleOff(); balade(); });
+          } else { balade(); }
+        }, 1500 + Math.random() * 2500);
+      });
+    }
+    balade();
+  }
+
+  /* Explication d'une section */
+  function lecture(nom){
+    var id = ++seq, etapes = explications[nom] || [], i = 0;
+    bulleOff(); arrive = null; clearTimeout(tLibre);
+    function suivant(){
+      if(id !== seq){ return; }
+      if(i >= etapes.length){ bulleOff(); libre(id); return; }
+      var txt = etapes[i]; i++;
+      if(i === 1){ dis(txt, suivant); return; }
+      bulleOff();
+      marcheVers(positionAlea(), function(){ if(id !== seq){ return; } dis(txt, suivant); });
+    }
+    suivant();
+  }
+  function annonce(nom){
+    courante = nom;
+    if(premier){
+      premier = false;
+      setTimeout(function(){ if(courante === nom){ lecture(nom); } }, 2400);
+    } else { lecture(nom); }
+  }
+  perso.addEventListener("click", function(){
+    if(parlant){ passe(); } else { lecture(courante); }
+  });
+
+  /* Boucle d'animation du guide */
+  function frame(t){
+    var dt = dernier ? Math.min((t - dernier) / 1000, .05) : .016;
+    dernier = t;
+    var dx = cibleX - gx, enMouv = Math.abs(dx) > 1.5;
+    if(enMouv){
+      gx += Math.min(Math.abs(dx), 78 * dt) * (dx > 0 ? 1 : -1);
+      dir = dx > 0 ? 1 : -1;
+    } else if(arrive){
+      var f = arrive; arrive = null; f();
+    }
+    if(enMouv !== enMarche){ enMarche = enMouv; perso.classList.toggle("marche", enMouv); }
+    gy = H2 - G.h - 10;
+    perso.style.transform = "scaleX(" + dir + ")";
     guide.style.transform = "translate3d(" + gx + "px," + gy + "px,0)";
     var hx = gx + G.w * .5, hy = gy + G.h * .29;
-    var ex = px - hx, ey = py - hy, d = Math.sqrt(ex * ex + ey * ey) || 1;
-    var k = Math.min(3, d / 50), ox = ex / d * k, oy = ey / d * k;
+    var lx = dedans ? px : hx + dir * 200, ly = dedans ? py : hy;
+    var ex = lx - hx, ey = ly - hy, d = Math.sqrt(ex * ex + ey * ey) || 1;
+    var k = Math.min(3, d / 50), ox = ex / d * k * dir, oy = ey / d * k;
     for(var i = 0; i < pupilles.length; i++){
       pupilles[i].style.transform = "translate(" + ox + "px," + oy + "px)";
     }
-    bulle.classList.toggle("gauche", gx > W2 - 250);
-    bulle.classList.toggle("bas", gy < 140);
+    bulle.classList.toggle("gauche", gx > W2 - 290);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
@@ -738,8 +809,7 @@ footer{text-align:center;padding:34px 20px;color:#8ea4c8;font-size:.9rem;border-
       el.classList.add("visible");
     });
     if(nom === "accueil"){ compteTous(); }
-    parle(messages[nom]);
-    salue();
+    annonce(nom);
   }
   window.addEventListener("hashchange", function(){ montre(location.hash.slice(1)); });
   montre(location.hash.slice(1));
